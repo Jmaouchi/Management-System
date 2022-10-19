@@ -32,14 +32,14 @@ const ClientType = new GraphQLObjectType ({
 const RootQuery = new GraphQLObjectType ({
   name : "RootQueryType",
   fields: {
-    // first query
+    // first query to get all clients data 
     clients: {
       type: new GraphQLList(ClientType),
       resolve(parent, args){
         return clients;
       }
     },
-    // second query 
+    // second query to GET a single client data 
     client: {
       type: ClientType,
       args:{ id : {type: GraphQLID}},
@@ -48,13 +48,14 @@ const RootQuery = new GraphQLObjectType ({
       }
     },
 
+    // third query to GET all projects data
     projects: {
       type: new GraphQLList(ProjectType),
       resolve(parent, args){
         return projects;
       }
     },
-    // second query 
+    // fourth query to GET a single project data
     project: {
       type: ProjectType,
       args:{ id : {type: GraphQLID}},
