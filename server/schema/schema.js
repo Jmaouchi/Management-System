@@ -1,6 +1,7 @@
+// get the projects data and the clients data 
 const { projects , clients} = require('../sampleData')
 
-const { graphQLObjectType, GraphQLObjectType, GraphQLString, graphql, GraphQLID, GraphQLSchema} = require('graphql')
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema, GraphQLList} = require('graphql')
 
 // Clients Types 
 const ClientType = new GraphQLObjectType ({
@@ -9,13 +10,23 @@ const ClientType = new GraphQLObjectType ({
     id:{type: GraphQLID},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
-    phone: {type: GraphQLString}
+    phone: {type: GraphQLString},
+
   })
 })
 
+// set the query to get the data back
 const RootQuery = new GraphQLObjectType ({
   name : "RootQueryType",
   fields: {
+    // first query
+    clients: {
+      type: new GraphQLList(ClientType),
+      resolve(parent, args){
+        return clients;
+      }
+    },
+    // second query 
     client: {
       type: ClientType,
       args:{ id : {type: GraphQLID}},
