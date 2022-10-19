@@ -11,7 +11,13 @@ const ProjectType = new GraphQLObjectType ({
     name: {type: GraphQLString},
     description: {type: GraphQLString},
     status: {type: GraphQLString},
-
+    client: {
+      type: ClientType,
+      resolve(parent, args){
+        // Get the client name wherever the client id on the client data is === to the clientId field on the project data
+        return clients.find(client => client.id === parent.clientId)
+      }
+    }
   })
 })
 
